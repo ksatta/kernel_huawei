@@ -3,6 +3,7 @@ Below are the old instructions to compile franco.kernel, the process is pretty m
 - in "git clone.." command use "https://github.com/ksatta/kernel_huawei.git"
 - build_scripts directory has some scripts I use to automate the building, zipping and copying to phone. You can optionally use those if you want. You can change
 the "ksatta" in build.sh to something else to differentiate your builds from others. It's used to create the text in settings/about phone/kernel.
+- instead of steps 9 & 10, just cd to the build_scripts/anykernel_zip_template dir.
 
 How to compile and flash franco.kernel (instructions by Kimmo Satta (ksatta))
 --------------------------------------------------------------
