@@ -1,0 +1,39 @@
+Below are the old instructions to compile franco.kernel, the process is pretty much the same, with the following changes:
+- before compiling: "cd kernel_huawei" and "ln -s config.current .config". This is just because .config is ignored in .gitignore (".*"), I'll tweak it later :)
+- in "git clone.." command use "https://github.com/ksatta/kernel_huawei.git"
+- build_scripts directory has some scripts I use to automate the building, zipping and copying to phone. You can optionally use those if you want. You can change
+the "ksatta" in build.sh to something else to differentiate your builds from others. It's used to create the text in settings/about phone/kernel.
+
+How to compile and flash franco.kernel (instructions by Kimmo Satta (ksatta))
+--------------------------------------------------------------
+(In ubuntu 11.04, should work for other distros/ubuntu versions too):
+
+1. get https://sourcery.mentor.com/sgpp/lite/arm/portal/package8736/public/arm-none-eabi/arm-2011.03-42-arm-none-eabi.bin (or latest)
+
+2. shell: "sudo apt-get install git"
+
+3. Create some directory for the kernel sources, cd to it, then in shell: "git clone https://github.com/franciscofranco/u8800-kernel.git"
+
+4. shell:"sudo dpkg-reconfigure -plow dash", choose no from the dialog. (The CodeSourcery installer doesn't support ubuntu 11.04's default shell (dash)).
+
+5. Run CodeSourcery intaller from shell: "sh arm-2011.03-42-arm-none-eabi.bin", choose minimal set, use all other default values.
+
+6. cd to the "u8800-kernel"-directory, it's where you ran git clone.
+
+7. shell:"PATH=$PATH:[codesourcery install dir]/bin" (I did this, but probably not needed when CROSS_COMPILE is used with make).
+
+8. shell:"make CROSS_COMPILE=/store/android/sourcery/bin/arm-none-eabi-".
+NOTE: I think this uses too few threads by default for newer CPUs, you can probably build it faster if you use for example -j8. The number is the number of threads used.
+NOTE2: Looks like the built zImage differs from franco's built zImage (31082011 ver), might be because there 
+
+9. make a directory for creating the .zip file for flashing the phone. cd to it.
+
+10. shell:"unzip franco.Kernel-31082011.zip" (or use latest .zip)
+
+11. Replace kernel/zImage with your built zImage. The built zImage is in "[franco.kernel sources dir]/u8800-kernel/arch/arm/boot".
+
+12. Create a zip to flash to the phone. Shell (in the directory you created in step 9):"zip -r foo.zip *". You can check with unzip -l that the directory structure is right. It should contain "kernel/.." and "META-INF/...".
+
+12. Boot phone into recovery, flash your new zip, and test if it works. "Settings/About phone" should now show [your username]@[your hostname] under Kernel version
+
+13. Modify the kernel in some cool way and share it to the community :)
