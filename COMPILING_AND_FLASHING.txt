@@ -24,7 +24,6 @@ How to compile and flash franco.kernel (instructions by Kimmo Satta (ksatta))
 
 8. shell:"make CROSS_COMPILE=/store/android/sourcery/bin/arm-none-eabi-".
 NOTE: I think this uses too few threads by default for newer CPUs, you can probably build it faster if you use for example -j8. The number is the number of threads used.
-NOTE2: Looks like the built zImage differs from franco's built zImage (31082011 ver), might be because there 
 
 9. make a directory for creating the .zip file for flashing the phone. cd to it.
 
